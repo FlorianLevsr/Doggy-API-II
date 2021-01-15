@@ -1,0 +1,7 @@
+%syntax-version=1.0.0
+%project=Doggy-API
+%uri=Doggy-API
+
+00-create-tables 2021-01-07T16:22:48Z root <root@MSI> # Création des tables
+10-account-queries 2021-01-12T13:51:14Z root <root@MSI> # optimized queries for account methods
+20-owner-queries 2021-01-12T13:55:36Z root <root@MSI> # optimized queries for dog methods

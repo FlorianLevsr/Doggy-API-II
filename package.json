@@ -1,0 +1,32 @@
+{
+  "name": "Doggy-API-II",
+  "version": "1.0.0",
+  "description": "API publique réalisée avec l'ORM Sequelize à des fins pédagogiques",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "import": "node import/import-data.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlorianLevsr/Doggy-API-II.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlorianLevsr/Doggy-API-II/issues"
+  },
+  "homepage": "https://github.com/FlorianLevsr/Doggy-API-II#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.5.1",
+    "redis": "^3.0.2"
+  }
+}

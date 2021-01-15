@@ -1,0 +1,108 @@
+[
+
+    {
+        "name": "Oslo",
+        "gender_id": 1,
+        "breed_id": 1,
+        "owner_id": 1
+    },
+    
+    {
+        "name": "Oscar",
+        "gender_id": 1,
+        "breed_id": 2,
+        "owner_id": 1
+    },
+
+    {
+        "name": "Lucky",
+        "gender_id": 1,
+        "breed_id": 3,
+        "owner_id": 2
+    },
+
+    {
+        "name": "Marley",
+        "gender_id": 1,
+        "breed_id": 4,
+        "owner_id": 3
+    },
+
+    {
+        "name": "Max",
+        "gender_id": 1,
+        "breed_id": 5,
+        "owner_id": 4
+    },
+
+    {
+        "name": "Jack",
+        "gender_id": 1,
+        "breed_id": 6,
+        "owner_id": 5
+    },
+
+    {
+        "name": "Newton",
+        "gender_id": 1,
+        "breed_id": 6,
+        "owner_id": 5
+    },
+
+    {
+        "name": "Milo",
+        "gender_id": 1,
+        "breed_id": 5,
+        "owner_id": 5
+    },
+
+    {
+        "name": "Django",
+        "gender_id": 1,
+        "breed_id": 4,
+        "owner_id": 6
+    },
+
+    {
+        "name": "Olaf",
+        "gender_id": 1,
+        "breed_id": 3,
+        "owner_id": 7
+    },
+
+    {
+        "name": "Olly",
+        "gender_id": 2,
+        "breed_id": 2,
+        "owner_id": 8
+    },
+
+    {
+        "name": "Luna",
+        "gender_id": 2,
+        "breed_id": 1,
+        "owner_id": 9
+    },
+
+    {
+        "name": "Maya",
+        "gender_id": 2,
+        "breed_id": 6,
+        "owner_id": 10
+    },
+
+    {
+        "name": "Cookie",
+        "gender_id": 1,
+        "breed_id": 2,
+        "owner_id": 11
+    },
+
+    {
+        "name": "Canelle",
+        "gender_id": 2,
+        "breed_id": 3,
+        "owner_id": 11
+    }
+
+]

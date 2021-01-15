@@ -1,0 +1,419 @@
+# https://editor.swagger.io/
+
+swagger: "2.0"
+info:
+  description: "API publique réalisée avec l'ORM Sequelize à des fins pédagogiques."
+  version: "1.0.0"
+  title: "Doggy API"
+  contact:
+    name: "Profil"
+    url: "https://github.com/FlorianLevsr"
+host: "localhost:3000"
+schemes:
+- "http"
+
+tags:
+- name: "Main"
+  description: "Routes utilisant les méthodes du mainController"
+- name: "Account"
+  description: "Routes utilisant les méthodes du accountController"
+- name: "Owner"
+  description: "Routes utilisant les méthodes du ownerController"
+
+paths:
+  /:
+    get:
+      tags:
+      - "Main"
+      summary: "Homepage - courte présentation de l'API"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/Homepage"
+            
+  /login:
+    post:
+      description: "login: admin / password: adminpassword - A noter que l'API renvoie également la token jwt, ceci à des fins purement pédagogiques (et pour une question de praticité)"
+      tags:
+      - "Account"
+      summary: "Connecte l'utilisateur"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "username"
+        in: "formData"
+        description: "Le nom d'utilisateur"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "formData"
+        description: "Le mot de passe"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Identification échouée - détails fournis"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  /token:
+    post:
+      description: "Route pour rafraichir la durée d'expiration du token"
+      tags:
+      - "Account"
+      summary: "Rafraichissement du token"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "refreshToken"
+        in: "formData"
+        description: "Le refreshToken reçu lors de /login"
+        required: true
+        type: "string"
+      - name: "authorization"
+        in: "header"
+        description: "Le  accessToken reçu avec /login - format: Bearer {token}"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Identification échouée - détails fournis"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  /logout:
+    get:
+      tags:
+      - "Account"
+      summary: "Déconnecte l'utilisateur"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "an authorization header"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+              
+  /owners:
+    get:
+      tags:
+      - "Owner"
+      summary: "Pour récupérer la liste de tous les propriétaires"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/AllOwners"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+            
+  /owner/{id}:
+    get:
+      tags:
+      - "Owner"
+      summary: "Pour récupérer un propriétaire grâce à son id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID du propriétaire"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            $ref: "#/definitions/Owner"
+        "400":
+          description: "Récupération KO - ID ne correspond à aucun propriétaire enregistré"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+            
+            
+  /owner/create:
+    post:
+      tags:
+      - "Owner"
+      summary: "Pour créer un propriétaire"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      
+      - name: "authorization"
+        in: "header"
+        description: "Connexion obligatoire - utiliser le token reçu avec /login - format: Bearer {token}"
+        required: true
+        type: "string"
+      - name: "name"
+        in: "formData"
+        description: "Le nom du propriétaire"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                format: "text"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    format: "int32"
+                  name:
+                    type: "string"
+                    format: "text"
+
+        "400":
+          description: "Champ(s) manquant(s)"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+                    
+  /owner/{id}/edit:
+    put:
+      tags:
+      - "Owner"
+      summary: "Pour modifier un chien"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "Connexion obligatoire - utiliser le token reçu avec /login - format: Bearer {token}"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "ID du propriétaire à modifier"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Le nom du propriétaire"
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                format: "text"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    format: "int32"
+                  name:
+                    type: "string"
+                    format: "text"
+        "400":
+          description: "Tous les champs sont vides - Aucune modification n'est apportée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+                    
+  /owner/{id}/delete:
+    delete:
+      tags:
+      - "Owner"
+      summary: "Pour supprimer un propriétaire"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "Connexion obligatoire - utiliser le token reçu avec /login - format: Bearer {token}"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        description: "ID du propriétaire à supprimer"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Opération réussie"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                format: "text"
+              data:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+                    format: "int32"
+                  name:
+                    type: "string"
+                    format: "text"
+        "400":
+          description: "Suppression KO - L'id renseignée ne fait référence à aucun propriétaire"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Opération échouée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+              
+            
+            
+definitions:
+  Homepage:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        format: "text"
+      subtile:
+        type: "string"
+        format: "text"
+      content:
+        type: "string"
+        format: "text"
+        
+  AllOwners:
+    type: "object"
+    properties:
+      data:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            owner_id:
+              type: "integer"
+              format: "int32"
+            owner_name:
+              type: "string"
+              format: "text"
+            number_of_dog:
+              type: "integer"
+              format: "int32"
+            dog:
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  name:
+                    type: "string"
+                    format: "text"
+                  gender:
+                    type: "string"
+                    format: "text"
+                  breed:
+                    type: "string"
+                    format: "text"
+                  favorite_food:
+                    type: "array"
+                    items:
+                      type: "string"
+                      format: "text"
+
+  Owner:
+    type: "object"
+    properties:
+      data:
+          type: "object"
+          properties:
+            owner_id:
+              type: "integer"
+              format: "int32"
+            owner_name:
+              type: "string"
+              format: "text"
+            number_of_dog:
+              type: "integer"
+              format: "int32"
+            dog:
+              type: "array"
+              items:
+                type: "object"
+                properties:
+                  name:
+                    type: "string"
+                    format: "text"
+                  gender:
+                    type: "string"
+                    format: "text"
+                  breed:
+                    type: "string"
+                    format: "text"
+                  favorite_food:
+                    type: "array"
+                    items:
+                      type: "string"
+                      format: "text"
+  
+  
+  ApiResponse:
+    type: "object"
+    properties:
+      messsage:
+        type: "string"
+        format: "text"
+
+

@@ -1,0 +1,63 @@
+[
+
+    {
+        "dog_id": "1",
+        "favorite_food_id": "2"
+    },
+
+    {
+        "dog_id": "2",
+        "favorite_food_id": "1"
+    },
+
+    {
+        "dog_id": "3",
+        "favorite_food_id": "3"
+    },
+
+    {
+        "dog_id": "4",
+        "favorite_food_id": "4"
+    },
+
+    {
+        "dog_id": "5",
+        "favorite_food_id": "5"
+    },
+
+    {
+        "dog_id": "6",
+        "favorite_food_id": "6"
+    },
+
+    {
+        "dog_id": "6",
+        "favorite_food_id": "2"
+    },
+
+    {
+        "dog_id": "7",
+        "favorite_food_id": "2"
+    },
+
+    {
+        "dog_id": "8",
+        "favorite_food_id": "3"
+    },
+
+    {
+        "dog_id": "9",
+        "favorite_food_id": "4"
+    },
+
+    {
+        "dog_id": "10",
+        "favorite_food_id": "5"
+    },
+
+    {
+        "dog_id": "11",
+        "favorite_food_id": "6"
+    }
+
+]
